@@ -2,22 +2,25 @@ package telegram
 
 import (
 	"fmt"
+	rediss "github.com/StandyBee/gotgbot/database/credis"
 	pocket "github.com/StandyBee/pocketSDK"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 	"log"
 )
 
 type Bot struct {
-	bot          *tgbotapi.BotAPI
-	pocketClient *pocket.Client
-	redirectUrl  string
+	bot             *tgbotapi.BotAPI
+	pocketClient    *pocket.Client
+	tokenRepository *rediss.TokenRepository
+	redirectUrl     string
 }
 
-func NewBot(bot *tgbotapi.BotAPI, client *pocket.Client, redirectUrl string) *Bot {
+func NewBot(bot *tgbotapi.BotAPI, client *pocket.Client, tr *rediss.TokenRepository, redirectUrl string) *Bot {
 	return &Bot{
-		bot:          bot,
-		pocketClient: client,
-		redirectUrl:  redirectUrl,
+		bot:             bot,
+		pocketClient:    client,
+		tokenRepository: tr,
+		redirectUrl:     redirectUrl,
 	}
 }
 
